@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Library App</h1>
+    <p class="lead">Manage your book collection with ease</p>
+    <hr class="my-4">
+    <p>This application allows you to manage books with different user roles.</p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('books.index') }}" role="button">View Books</a>
+</div>
+{% endblock %}
