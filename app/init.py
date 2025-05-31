@@ -44,7 +44,7 @@ def create_app():
     def internal_error(error):
         return render_template('errors/500.html'), 500
     
-    # Инициализация БД при первом запуске
+    # Инициализация БД при запуске
     with app.app_context():
         init_db(app)
     
@@ -66,9 +66,3 @@ def init_db(app):
             db.session.add(user)
     
     db.session.commit()
-
-# Создаем приложение
-app = create_app()
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
