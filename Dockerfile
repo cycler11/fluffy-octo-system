@@ -14,5 +14,8 @@ COPY . .
 
 EXPOSE 5000
 
-# Замените последнюю строку:
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
+
 CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
