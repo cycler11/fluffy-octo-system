@@ -5,16 +5,16 @@ services:
     build: .
     ports:
       - "5000:5000"
-    volumes:
-      - .:/app
-      - db_data:/data
     environment:
-      - FLASK_APP=app/__init__.py
+      - FLASK_APP=app
       - FLASK_ENV=production
       - SECRET_KEY=your_secret_key
-    command: flask run --host=0.0.0.0
     depends_on:
       - db
+    command: >
+      sh -c "flask db upgrade &&
+             flask init-db &&
+             flask run --host=0.0.0.0"
 
   db:
     image: postgres:13
@@ -26,5 +26,4 @@ services:
       - pg_data:/var/lib/postgresql/data
 
 volumes:
-  db_data:
   pg_data:
