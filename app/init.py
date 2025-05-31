@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -44,3 +44,9 @@ def create_app():
         return render_template('errors/500.html'), 500
     
     return app
+
+# Создаем приложение для запуска
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
