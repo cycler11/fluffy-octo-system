@@ -24,8 +24,9 @@ docker-run:
 
 migrate:
 	$(PYTHON) -m flask db init
-	$(PYTHON) -m flask db migrate -m "Initial migration"
+	$(PYTHON) -m flask create-migration "Initial migration"
 	$(PYTHON) -m flask db upgrade
+	$(PYTHON) -m flask init-db
 
 lint:
 	$(PYTHON) -m flake8 app tests
