@@ -9,10 +9,10 @@ services:
       - .:/app
       - db_data:/data
     environment:
-      - FLASK_APP=app/__init__.py  # Исправлено
+      - FLASK_APP=app/__init__.py
       - FLASK_ENV=production
       - SECRET_KEY=your_secret_key
-    command: flask run --host=0.0.0.0  # Добавлено
+    command: flask run --host=0.0.0.0
     depends_on:
       - db
 
