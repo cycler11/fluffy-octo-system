@@ -1,5 +1,4 @@
 import click
-import os
 from flask.cli import with_appcontext
 from .models import db, User
 from .config import Config
@@ -21,14 +20,5 @@ def init_db_command():
     db.session.commit()
     click.echo('Database initialized')
 
-@click.command('create-migration')
-@click.argument('message')
-@with_appcontext
-def create_migration_command(message):
-    """Create a new migration"""
-    os.system(f'flask db migrate -m "{message}"')
-    click.echo('Migration created')
-
 def register_commands(app):
     app.cli.add_command(init_db_command)
-    app.cli.add_command(create_migration_command)
