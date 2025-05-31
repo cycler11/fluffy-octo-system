@@ -45,7 +45,7 @@ def create_app():
     
     return app
 
-# Создаем приложение для запуска
+# Создаем приложение
 app = create_app()
 
 if __name__ == '__main__':
