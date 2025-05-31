@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{{ book.title }}{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ book.title }}</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Автор: {{ book.author }}</h5>
+            <p class="card-text">Год издания: {{ book.year }}</p>
+            <div class="mt-4">
+                <a href="{{ url_for('edit', id=book.id) }}" class="btn btn-warning">Изменить</a>
+                <a href="{{ url_for('delete', id=book.id) }}" class="btn btn-danger">Удалить</a>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">Назад</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

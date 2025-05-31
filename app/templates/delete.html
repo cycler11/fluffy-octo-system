@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Удалить книгу{% endblock %}
+{% block content %}
+    <h1 class="mb-4">Удалить книгу</h1>
+    <div class="alert alert-danger">
+        Вы уверены, что хотите удалить книгу <strong>{{ book.title }}</strong>?
+    </div>
+    <form method="POST">
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Отмена</a>
+    </form>
+{% endblock %}
