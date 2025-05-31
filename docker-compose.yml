@@ -6,14 +6,12 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - FLASK_APP=app:app
-      - FLASK_ENV=production
       - SECRET_KEY=your_secret_key
       - DATABASE_URL=postgresql://user:password@db/library
     depends_on:
       db:
         condition: service_healthy
-    command: flask run --host=0.0.0.0
+    command: python run.py
 
   db:
     image: postgres:13
