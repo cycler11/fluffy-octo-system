@@ -1,20 +1,21 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_migrate import Migrate
 from .config import Config
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
+    # Явная установка URI базы данных
+    if 'DATABASE_URL' in app.config:
+        app.config['SQLALCHEMY_DATABASE_URI'] = app.config['DATABASE_URL']
+    
     db.init_app(app)
     login_manager.init_app(app)
-    migrate.init_app(app, db)
     
     login_manager.login_view = 'auth.login'
     
@@ -43,7 +44,28 @@ def create_app():
     def internal_error(error):
         return render_template('errors/500.html'), 500
     
+    # Инициализация БД при первом запуске
+    with app.app_context():
+        init_db(app)
+    
     return app
+
+def init_db(app):
+    """Инициализация базы данных"""
+    db.create_all()
+    
+    from .models import User
+    from .config import Config
+    
+    # Создание начальных пользователей
+    for user_data in Config.INITIAL_USERS:
+        user = User.query.filter_by(username=user_data['username']).first()
+        if not user:
+            user = User(username=user_data['username'], role=user_data['role'])
+            user.password = user_data['password']
+            db.session.add(user)
+    
+    db.session.commit()
 
 # Создаем приложение
 app = create_app()
